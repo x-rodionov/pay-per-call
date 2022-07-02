@@ -1,6 +1,6 @@
 import { writable, get } from 'svelte/store';
 import type { DataConnection, MediaConnection } from 'peerjs';
-import { user, peer } from '../auth';
+import { user, peer } from '$lib/entities/user';
 import { getPeerId } from '../../utils/get-peer-id';
 
 export interface Session {

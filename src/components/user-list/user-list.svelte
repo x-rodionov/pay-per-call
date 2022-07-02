@@ -2,7 +2,7 @@
   import { goto } from '$app/navigation';
   
   import {userList} from './model';
-  import {user} from '../auth';
+  import {user} from '$lib/entities/user';
   import {initiateSession} from '../session';
   
   const joinSession = (personId) => {
