@@ -1,6 +1,6 @@
 import Peer from 'peerjs';
-import { createUser, findUser, type User } from './users';
-import { getPeerId } from './get-peer-id';
+import { createUser, findUser, type User } from '../../utils/users';
+import { getPeerId } from '../../utils/get-peer-id';
 
 export const connect = async (name: string): Promise<{ peer: Peer; user: User }> => {
 	const peer = new Peer(getPeerId(name));

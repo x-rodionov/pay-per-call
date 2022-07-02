@@ -1,2 +1,2 @@
-export { default as Auth} from './auth.svelte';
-export {user} from './model';
+export { default as Auth } from './auth.svelte';
+export { user, peer } from './model';

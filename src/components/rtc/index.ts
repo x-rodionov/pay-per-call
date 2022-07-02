@@ -1,1 +1,0 @@
-export { peer } from './model';

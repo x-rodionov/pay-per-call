@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { connect } from '../../utils/connect';
-  import { user, isLoggedIn } from './model';
-  import { peer } from '../rtc';
+  import { connect } from './connect';
+  import { user, peer, isLoggedIn } from './model';
 
   let name = '';
   
