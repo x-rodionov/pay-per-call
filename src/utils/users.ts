@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { supabase } from '$lib/shared/api/supabase';
 
 export interface User {
 	id: number;
