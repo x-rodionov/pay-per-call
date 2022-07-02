@@ -9,7 +9,7 @@
 </script>
 
 <article class="flex justify-between items-center py-4 border-b border-gray-400">
-	<h2 class="text-xl">{tutor.wallet_id}</h2>
+	<h2 class="text-xl">{tutor.name}</h2>
 	<div class="flex">
 		<CTAButton class="mr-2" on:click={() => dispatch('request', tutor)}>Request</CTAButton>
 	</div>

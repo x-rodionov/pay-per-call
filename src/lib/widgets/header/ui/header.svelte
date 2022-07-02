@@ -14,7 +14,7 @@
 	<Branding />
 	<TeachSelector />
 	<div class="flex items-center">
-		Hello, {$user?.wallet_id}!
+		Hello, {$user?.name}!
 		<FlatIconButton label="Edit username" icon={IconEdit} class="ml-2" />
 		<FlatIconButton label="Log out" icon={IconLogout} on:click={logout} />
 	</div>
