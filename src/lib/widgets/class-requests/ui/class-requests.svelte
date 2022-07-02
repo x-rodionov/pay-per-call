@@ -11,5 +11,7 @@
 <div>
   {#each requests as request}
     <RequestCard name={request.name} />
+  {:else}
+    <div>No requests yet</div>
   {/each}
 </div>

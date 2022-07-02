@@ -3,18 +3,15 @@
 	// import { range } from 'lodash-es';
 	import { goto } from '$app/navigation';
 
-  import { peer, user } from '$lib/entities/user';
 	import { CTAButton, TextField } from '$lib/shared/ui';
 
 	import { connect } from '../api/connect';
 
 	let username = '';
-	const fieldValues = new Array<string>(24).fill('');
+	// const fieldValues = new Array<string>(24).fill('');
 
 	const logIn = async () => {
-		const res = await connect(username);
-		$peer = res.peer;
-		$user = res.user;
+		await connect(username);
 		goto('/tutor');
 	};
 </script>
