@@ -7,7 +7,7 @@
 
 	import { connect } from '../api/connect';
 	import { MNEMONICS_LENGTH } from '$lib/shared/api/ton';
-	import { FAST_MNEMONICS } from '../../../../utils/env';
+	import { FAST_MNEMONICS } from '$lib/shared/lib/env';
 
 	let username = '';
 	let error = '';
