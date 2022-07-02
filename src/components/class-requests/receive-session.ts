@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
 import type { DataConnection, MediaConnection } from 'peerjs';
 import { peer, user } from '../auth';
-import { session } from './model';
+import { addRequest } from './model';
 
 const isDataConnection = (
 	connection: DataConnection | MediaConnection
@@ -19,17 +19,16 @@ const prepareSession = () => {
 		const userId = get(user)?.wallet_id;
 		if (!userId) return;
 
-		session.update(() => ({
+		addRequest({
 			loading: true,
 			student: studentId!,
 			teacher: userId,
 			data: dataConnection!,
 			call: mediaConnection!
-		}));
+		});
 	};
 
 	return (connection: DataConnection | MediaConnection) => {
-		console.log('got it', connection);
 		if (isDataConnection(connection)) dataConnection = connection;
 		if (isMediaConnection(connection)) mediaConnection = connection;
 		if (studentId && connection.peer === studentId) {
