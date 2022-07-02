@@ -1,2 +1,1 @@
-// TODO: move the header here
-export { default as Header } from '../../../components/header/header.svelte';
+export { default as Header } from './ui/header.svelte';

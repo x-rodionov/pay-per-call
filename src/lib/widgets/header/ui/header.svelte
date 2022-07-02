@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { TeachSelector } from '../teach-selector';
 	import IconLogout from '~icons/material-symbols/logout';
 	import IconEdit from '~icons/material-symbols/edit-outline';
 
@@ -8,6 +7,7 @@
 	import { FlatIconButton } from '$lib/shared/ui';
 
 	import Branding from './branding.svelte';
+	import TeachSelector from './teach-selector.svelte';
 </script>
 
 <header class="flex justify-between items-center px-12 lg:px-40 py-12">
