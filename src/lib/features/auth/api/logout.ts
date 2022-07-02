@@ -1,6 +1,6 @@
 import { goto } from '$app/navigation';
 import { peer as peerStore, user as userStore, wallet as walletStore } from '$lib/entities/user';
-import { removeKeys } from '../../../../utils/ton';
+import { removeKeys } from '$lib/shared/api/ton';
 
 export const logout = () => {
 	removeKeys();

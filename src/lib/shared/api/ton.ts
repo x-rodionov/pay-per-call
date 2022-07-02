@@ -1,7 +1,7 @@
 import TonWeb, { type AddressType } from 'tonweb';
 import { type KeyPair, isPasswordNeeded, mnemonicToKeyPair } from 'tonweb-mnemonic';
 import type { WalletV3ContractBase } from 'tonweb/dist/types/contract/wallet/v3/wallet-v3-contract-base';
-import { TON_MAINNET_API_KEY, TON_TESTNET_API_KEY } from './env';
+import { TON_MAINNET_API_KEY, TON_TESTNET_API_KEY } from '../../../utils/env';
 
 const TEST_MODE = true;
 

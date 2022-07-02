@@ -6,20 +6,20 @@
 	import { CTAButton, TextField } from '$lib/shared/ui';
 
 	import { connect } from '../api/connect';
-	import { MNEMONICS_LENGTH } from '../../../../utils/ton';
+	import { MNEMONICS_LENGTH } from '$lib/shared/api/ton';
 	import { FAST_MNEMONICS } from '../../../../utils/env';
 
 	let username = '';
 	let error = '';
 	const fieldValues = FAST_MNEMONICS ? FAST_MNEMONICS.split(' ') : new Array<string>(24).fill('');
-	
+
 	const logIn = async () => {
 		error = '';
 		if (fieldValues.filter((item) => !!item).length < MNEMONICS_LENGTH) {
 			error = `All ${MNEMONICS_LENGTH} words should be filled.`;
 			return;
 		}
-		
+
 		await connect(username, fieldValues);
 		goto('/tutor');
 	};

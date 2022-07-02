@@ -4,7 +4,7 @@ import { peer as peerStore, user as userStore, wallet as walletStore } from '$li
 
 import { createUser, findUser } from '../../../../utils/users';
 import { getPeerId } from '$lib/entities/user';
-import { getKeyPairAndWallet } from '../../../../utils/ton';
+import { getKeyPairAndWallet } from '$lib/shared/api/ton';
 
 export const connect = async (name: string, mnemonic: string[]) => {
 	const ton = await getKeyPairAndWallet(mnemonic);

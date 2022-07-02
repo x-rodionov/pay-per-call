@@ -1,5 +1,5 @@
-import { getPersistedWallet } from '../../../../utils/ton';
-import { wallet as walletStore } from '../../../entities/user';
+import { getPersistedWallet } from '$lib/shared/api/ton';
+import { wallet as walletStore } from '$lib/entities/user';
 
 export const initialAuth = () => {
 	const data = getPersistedWallet();
