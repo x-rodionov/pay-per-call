@@ -31,7 +31,8 @@
 	{/each}
 </datalist>
 <form class="flex flex-col items-center" on:submit|preventDefault={logIn}>
-	<TextField id="username-field" label="Username" required bind:value={username} class="mb-4" />
+	<TextField id="username-field" label="Display name" required bind:value={username} class="mb-4" />
+	<p class="my-2">Wallet mnemonics:</p>
 	<div class="grid grid-rows-[repeat(8,minmax(0,1fr))] grid-flow-col justify-items-end mb-4">
 		{#each range(1, 25) as i}
 			<div class="mb-2">
