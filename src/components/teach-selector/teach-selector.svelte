@@ -1,6 +1,16 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+
 	import LinklikeTab from './linklike-tab.svelte';
 	import { isTeaching } from './model';
+
+	isTeaching.subscribe((isTeaching) => {
+		if (isTeaching) {
+			goto('/tutor');
+		} else {
+			goto('/student');
+		}
+	});
 </script>
 
 <div>
