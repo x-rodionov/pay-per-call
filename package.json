@@ -19,6 +19,7 @@
 		"@sveltejs/adapter-vercel": "^1.0.0-next.59",
 		"@sveltejs/kit": "next",
 		"@types/bn.js": "^5.1.0",
+		"@types/lodash-es": "^4.17.6",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
 		"@typescript-eslint/parser": "^5.27.0",
 		"autoprefixer": "^10.4.7",
@@ -39,6 +40,7 @@
 	"dependencies": {
 		"@supabase/supabase-js": "^1.35.4",
 		"clsx": "^1.1.1",
+		"lodash-es": "^4.17.21",
 		"peerjs": "^1.4.6",
 		"tonweb": "^0.0.50",
 		"tonweb-mnemonic": "^1.0.1"

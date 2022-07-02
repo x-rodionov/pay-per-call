@@ -1,6 +1,6 @@
 <script lang="ts">
 	import clsx from 'clsx';
-	import { LogInButton } from '$lib/features/auth';
+	import { LogInButton, The24Fields } from '$lib/features/auth';
 	import Branding from './branding.svelte';
 	import LoveMessage from './love-message.svelte';
 
@@ -22,5 +22,7 @@
 		<div class="flex-1 flex flex-col justify-end items-center">
 			<LoveMessage />
 		</div>
+	{:else}
+		<The24Fields />
 	{/if}
 </div>
