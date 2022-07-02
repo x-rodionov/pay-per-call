@@ -34,6 +34,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@supabase/supabase-js": "^1.35.4",
 		"peerjs": "^1.4.6",
 		"tonweb": "^0.0.49"
 	}

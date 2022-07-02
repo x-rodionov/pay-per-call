@@ -1,19 +1,31 @@
-<script>
+<script lang="ts">
+  import {onMount} from 'svelte';
   import Peer from 'peerjs';
+  import { type User, fetchUsers } from '../utils/users';
+  import {connect} from '../utils/connect';
   
   let name = '';
   let isTutor = false;
   let loggedIn = false;
   
-  const logIn = () => {
+  let peer: Peer = null;
+  let users: User[] = [];
+  let currentUser: User = null;
+  
+  onMount(async () => {
+    users = await fetchUsers();
+  });
+  
+  const logIn = async (e: Event) => {
+    e.preventDefault();
     if (name) {
+      const {} = await connect(name);
       loggedIn = true;
     }
   };
   
-  const connect = () => {
-    const peer = new Peer();
-    console.log(peer);
+  const joinSession = async () => {
+    console.log('session');
   };
 </script>
 
@@ -31,9 +43,20 @@
     {#if isTutor}
       <p>Please, wait for a student to ask for a lesson</p>
     {:else}
-      <button type="button" on:click={connect}>Connect</button>
+      <button type="button" on:click={joinSession}>Connect</button>
     {/if}
   </section>
 {/if}
 
-
+<section>
+  <h2>User list</h2>
+  
+  <div class="grid grid-cols-3 px-4">
+    {#each users as user}
+      <div class="flex flex-col p-4 border rounded">
+        {user.wallet_id}
+        <button type="Connect"></button>
+      </div>
+    {/each}
+  </div>
+</section>
