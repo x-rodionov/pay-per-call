@@ -9,7 +9,8 @@ export interface Session {
 	student: string;
 	data: DataConnection;
 	call: MediaConnection;
-	stream?: MediaStream;
+	studentStream?: MediaStream;
+	teacherStream?: MediaStream;
 }
 
 export const session = writable<Session | null>(null);
@@ -24,16 +25,26 @@ export const initiateSession = (teacherId: string) => {
 	const connection = userPeer.connect(getPeerId(teacherId));
 	const call = userPeer.call(getPeerId(teacherId), stream);
 
-	session.update(() => ({
+	const newSession = {
 		loading: true,
 		student: userId,
 		teacher: teacherId,
 		data: connection,
 		call,
-		stream
-	}));
-	// connection.on('open', () => {
-	// 	console.log('opened');
-	// 	connectionModel.update(() => connection);
-	// });
+		studentStream: stream
+	} as Session;
+
+	call.on('stream', (teacherStream) => {
+		console.log('stream started');
+		session.update(
+			(val) =>
+				({
+					...val,
+					loading: false,
+					teacherStream
+				} as Session)
+		);
+	});
+
+	session.update(() => newSession);
 };

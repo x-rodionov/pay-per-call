@@ -10,6 +10,10 @@ const isMediaConnection = (
 	connection: DataConnection | MediaConnection
 ): connection is MediaConnection => connection.type === 'media';
 
+/**
+ * The function that waits for two connections (data and media) to be answered by the peer
+ * to move this session into the list of class requests
+ */
 const prepareSession = () => {
 	let studentId: string | null = null;
 	let dataConnection: DataConnection | null = null;

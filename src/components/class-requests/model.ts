@@ -12,5 +12,14 @@ export const rejectSession = (request: SessionType) => {
 };
 
 export const acceptSession = (newSession: SessionType) => {
-	session.update(() => newSession);
+	const stream = new MediaStream();
+	newSession.call.answer(stream);
+	newSession.teacherStream = stream;
+	newSession.loading = false;
+
+	newSession.call.on('stream', (studentStream) => {
+		console.log('student stream', studentStream);
+	});
+
+	session.set(newSession);
 };
