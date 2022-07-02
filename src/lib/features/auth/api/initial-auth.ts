@@ -1,6 +1,7 @@
 import { getPersistedWallet } from '$lib/shared/api/ton';
 import { wallet as walletStore, user as userStore } from '$lib/entities/user';
 import { findUser } from '$lib/shared/api/users';
+import { fillUserInfo } from './fill-user-info';
 
 export const initialAuth = () => {
 	const data = getPersistedWallet();
@@ -11,10 +12,7 @@ export const initialAuth = () => {
 	const { wallet } = data;
 	wallet.getAddress().then(async (address) => {
 		wallet.address = address;
-		const addressString = address.toString(true, true, true);
-		const user = await findUser(addressString);
-		walletStore.set(wallet);
-		userStore.set(user);
+		await fillUserInfo(wallet);
 	});
 
 	return true;
