@@ -20,3 +20,11 @@ export const createUser = async (user: Omit<User, 'id'>): Promise<User | null> =
 	const res = await supabase.from<User>('users').insert([user]);
 	return res.data?.[0] || null;
 };
+
+export const changeUserName = async (walletId: string, newName: string): Promise<User | null> => {
+	const res = await supabase
+		.from<User>('users')
+		.update({ name: newName })
+		.eq('wallet_id', walletId);
+	return res.data?.[0] || null;
+};

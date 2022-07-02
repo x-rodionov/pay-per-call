@@ -31,6 +31,7 @@
 			'bg-blue-50 border-2 border-blue-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5',
 			_class
 		)}
+		on:blur
     {...$$restProps}
 	/>
 </div>
