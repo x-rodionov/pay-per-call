@@ -1,8 +1,11 @@
 import Peer from 'peerjs';
-import { createUser, findUser, type User } from '../../../../utils/users';
+
+import { peer as peerStore, user as userStore } from '$lib/entities/user';
+
+import { createUser, findUser } from '../../../../utils/users';
 import { getPeerId } from '../../../../utils/get-peer-id';
 
-export const connect = async (name: string): Promise<{ peer: Peer; user: User }> => {
+export const connect = async (name: string) => {
 	const peer = new Peer(getPeerId(name));
 
 	let user = await findUser(name);
@@ -13,5 +16,6 @@ export const connect = async (name: string): Promise<{ peer: Peer; user: User }>
 		}
 	}
 
-	return { peer, user: user! };
+	peerStore.set(peer);
+	userStore.set(user);
 };
