@@ -19,7 +19,6 @@
       "my-2",
 			labelInline && "mx-4",
       "font-medium",
-      "text-gray-900",
 		)}
 	>
     {label}
@@ -28,7 +27,16 @@
 		{id}
 		bind:value
 		class={clsx(
-			'bg-blue-50 border-2 border-blue-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5',
+			'bg-blue-50',
+			'border-2 border-blue-500',
+			'text-gray-900',
+			'text-sm',
+			'rounded-lg',
+			'focus:ring-blue-500 focus:border-blue-500',
+			'block',
+			'w-full',
+			'p-2.5',
+			'dark:bg-slate-700 dark:text-slate-100',
 			_class
 		)}
     {...$$restProps}

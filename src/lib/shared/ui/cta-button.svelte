@@ -15,6 +15,7 @@
     "font-semibold font-roboto-slab",
     "px-8 py-3",
     "dark:bg-blue-300 dark:hover:bg-blue-400",
+    "dark:text-slate-900",
     "dark:focus:ring-blue-800",
     "rounded-lg",
     _class
