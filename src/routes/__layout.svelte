@@ -3,9 +3,7 @@
   import {initialAuth} from '$lib/features/auth';
 
   const loggedIn = initialAuth();
-  if (loggedIn) {
-    goto('/student');
-  } else {
+  if (!loggedIn) {
     goto('/');
   }
 </script>
