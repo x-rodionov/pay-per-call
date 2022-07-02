@@ -1,5 +1,10 @@
 lockfileVersion: 5.4
 
+patchedDependencies:
+  isomorphic-webcrypto@2.3.8:
+    hash: blurmpqwewdvyrlh6lguelmeve
+    path: patches/isomorphic-webcrypto@2.3.8.patch
+
 specifiers:
   '@fontsource/roboto-mono': ^4.5.7
   '@fontsource/roboto-slab': ^4.5.8
@@ -1787,7 +1792,7 @@ packages:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
 
-  /isomorphic-webcrypto/2.3.8:
+  /isomorphic-webcrypto/2.3.8_blurmpqwewdvyrlh6lguelmeve:
     resolution: {integrity: sha512-XddQSI0WYlSCjxtm1AI8kWQOulf7hAN3k3DclF1sxDJZqOe0pcsOt675zvWW91cZH9hYs3nlA3Ev8QK5i80SxQ==}
     dependencies:
       '@peculiar/webcrypto': 1.4.0
@@ -1806,6 +1811,7 @@ packages:
       - expo
       - react-native
     dev: false
+    patched: true
 
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -2716,7 +2722,7 @@ packages:
       '@ledgerhq/hw-transport-webusb': 5.48.0
       bn.js: 5.1.1
       ethjs-unit: 0.1.6
-      isomorphic-webcrypto: 2.3.8
+      isomorphic-webcrypto: 2.3.8_blurmpqwewdvyrlh6lguelmeve
       node-fetch: 2.6.7
       tweetnacl: 1.0.3
     transitivePeerDependencies:

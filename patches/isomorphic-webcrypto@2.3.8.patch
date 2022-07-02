@@ -1,0 +1,80 @@
+diff --git a/src/webcrypto-shim.mjs b/src/webcrypto-shim.mjs
+index 9678fb9d0460c3838ad3e126b6707dc5fcc52d6e..3d5965a6738ca492ddffbb22a49e615932a1e37b 100644
+--- a/src/webcrypto-shim.mjs
++++ b/src/webcrypto-shim.mjs
+@@ -3,36 +3,36 @@
+  * @author Artem S Vybornov <vybornov@gmail.com>
+  * @license MIT
+  */
+-(function (global, factory) {
++(function (globalVariable, factory) {
+     if (typeof define === 'function' && define.amd) {
+         // AMD. Register as an anonymous module.
+         define([], function () {
+-            return factory(global);
++            return factory(globalVariable);
+         });
+     } else if (typeof module === 'object' && module.exports) {
+         // CommonJS-like environments that support module.exports
+-        module.exports = factory(global);
++        module.exports = factory(globalVariable);
+     } else {
+-        factory(global);
++        factory(globalVariable);
+     }
+-}(typeof self !== 'undefined' ? self : this, function (global) {
++}(typeof self !== 'undefined' ? self : this, function (globalVariable) {
+     'use strict';
+ 
+     if ( typeof Promise !== 'function' )
+         throw "Promise support required";
+ 
+-    var _crypto = global.crypto || global.msCrypto;
++    var _crypto = globalVariable.crypto || globalVariable.msCrypto;
+     if ( !_crypto ) return;
+ 
+     var _subtle = _crypto.subtle || _crypto.webkitSubtle;
+     if ( !_subtle ) return;
+ 
+-    var _Crypto     = global.Crypto || _crypto.constructor || Object,
+-        _SubtleCrypto = global.SubtleCrypto || _subtle.constructor || Object,
+-        _CryptoKey  = global.CryptoKey || global.Key || Object;
++    var _Crypto     = globalVariable.Crypto || _crypto.constructor || Object,
++        _SubtleCrypto = globalVariable.SubtleCrypto || _subtle.constructor || Object,
++        _CryptoKey  = globalVariable.CryptoKey || globalVariable.Key || Object;
+ 
+-    var isEdge = global.navigator.userAgent.indexOf('Edge/') > -1;
+-    var isIE    = !!global.msCrypto && !isEdge;
++    var isEdge = globalVariable.navigator.userAgent.indexOf('Edge/') > -1;
++    var isIE    = !!globalVariable.msCrypto && !isEdge;
+     var isWebkit = !_crypto.subtle && !!_crypto.webkitSubtle;
+     if ( !isIE && !isWebkit ) return;
+ 
+@@ -592,21 +592,21 @@
+             return op;
+         };
+ 
+-        global.crypto = Object.create( _crypto, {
++        globalVariable.crypto = Object.create( _crypto, {
+             getRandomValues: { value: function ( a ) { return _crypto.getRandomValues(a) } },
+             subtle:          { value: _subtle },
+         });
+ 
+-        global.CryptoKey = CryptoKey;
++        globalVariable.CryptoKey = CryptoKey;
+     }
+ 
+     if ( isWebkit ) {
+         _crypto.subtle = _subtle;
+ 
+-        global.Crypto = _Crypto;
+-        global.SubtleCrypto = _SubtleCrypto;
+-        global.CryptoKey = CryptoKey;
++        globalVariable.Crypto = _Crypto;
++        globalVariable.SubtleCrypto = _SubtleCrypto;
++        globalVariable.CryptoKey = CryptoKey;
+     }
+ }));
+ 
+- export default {} // section modified by isomorphic-webcrypto build 
++ export default {} // section modified by isomorphic-webcrypto build

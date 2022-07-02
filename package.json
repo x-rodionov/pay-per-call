@@ -46,5 +46,10 @@
 		"peerjs": "^1.4.6",
 		"tonweb": "^0.0.50",
 		"tonweb-mnemonic": "^1.0.1"
+	},
+	"pnpm": {
+		"patchedDependencies": {
+			"isomorphic-webcrypto@2.3.8": "patches/isomorphic-webcrypto@2.3.8.patch"
+		}
 	}
 }
