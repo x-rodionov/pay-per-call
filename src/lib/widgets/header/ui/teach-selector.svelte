@@ -1,7 +1,12 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { LinklikeTab } from '$lib/shared/ui';
 
 	import { isTeaching } from '../model/is-teaching';
+
+	onMount(() => {
+		isTeaching.set(window.location.pathname === '/tutor');
+	});
 </script>
 
 <div>
