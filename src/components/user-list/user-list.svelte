@@ -1,9 +1,13 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
+  
   import {userList} from './model';
   import {user} from '../auth';
+  import {initiateSession} from '../session';
   
   const joinSession = (personId) => {
-    console.log('session', personId);
+    initiateSession(personId);
+    goto('/session');
   };
 </script>
 
