@@ -2,8 +2,8 @@ import { get } from 'svelte/store';
 import { goto } from '$app/navigation';
 
 import { peer, getPeerId, type User } from '$lib/entities/user';
+import { streams } from '$lib/entities/stream';
 
-import { streams } from '../model/streams';
 import { activeCall } from '../model/active-call';
 
 export async function initiateCall(user: User) {

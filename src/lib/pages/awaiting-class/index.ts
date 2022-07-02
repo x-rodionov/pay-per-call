@@ -1,1 +1,1 @@
-export { AwaitingClassPage } from './ui/awaiting-class-page.svelte';
+export { default as AwaitingClassPage } from './ui/awaiting-class-page.svelte';

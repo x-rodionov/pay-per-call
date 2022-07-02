@@ -1,17 +1,25 @@
 <script lang="ts">
-  import RequestCard from "./request-card.svelte";
+	import { onMount } from 'svelte';
 
-  const requests = [
-    {
-      name: 'Splendid Banana',
-    }
-  ];
+	import { peer } from '$lib/entities/user';
+
+	import RequestCard from './request-card.svelte';
+  import { incomingCalls, addCall } from '$lib/features/accept-call';
+
+	onMount(() => {
+		$peer?.on('call', addCall);
+		$peer?.on('call', console.log);
+
+		return () => {
+			$peer?.off('call');
+		};
+	});
 </script>
 
 <div>
-  {#each requests as request}
-    <RequestCard name={request.name} />
-  {:else}
-    <div>No requests yet</div>
-  {/each}
+	{#each $incomingCalls as call}
+		<RequestCard {call} name="Splendid Banana" />
+	{:else}
+		<div>Wait for the requests to appear...</div>
+	{/each}
 </div>
