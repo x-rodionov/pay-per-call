@@ -9,7 +9,7 @@
 
 <div
 	class={clsx(
-		'flex flex-col items-center font-roboto-slab flex-1 pb-6',
+		'flex flex-col items-center flex-1 pb-6',
     'transition-all',
 		loginActive ? 'pt-12' : 'pt-24'
 	)}

@@ -14,12 +14,13 @@
 <div class={clsx('flex', labelInline ? 'items-center' : 'flex-col',)}>
 	<label
     for={id}
-    class="
-      block
-      my-2 mx-4
-      font-medium
-      text-gray-900 dark:text-gray-300
-    "
+    class={clsx(
+      "block",
+      "my-2",
+			labelInline && "mx-4",
+      "font-medium",
+      "text-gray-900 dark:text-gray-300",
+		)}
 	>
     {label}
   </label>
