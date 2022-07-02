@@ -6,7 +6,7 @@
 
   const cancelSession = () => {
     $activeCall?.close();
-    goto('/');
+    goto('/student');
   };
 </script>
 
