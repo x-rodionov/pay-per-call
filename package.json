@@ -34,6 +34,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"peerjs": "^1.4.6",
 		"tonweb": "^0.0.49"
 	}
 }
