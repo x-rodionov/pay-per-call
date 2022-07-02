@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
-import { fetchUsers, type User } from '../../utils/users';
+import { fetchUsers, type User } from '../../../../utils/users';
 
-export const userList = writable<User[]>([], () => {
+export const availableTutors = writable<User[]>([], () => {
 	fetchUserList();
 	const interval = setInterval(fetchUserList, 5000);
 
@@ -11,6 +11,5 @@ export const userList = writable<User[]>([], () => {
 });
 
 const fetchUserList = async () => {
-	const res = await fetchUsers();
-	userList.update(() => res);
+	availableTutors.set(await fetchUsers());
 };

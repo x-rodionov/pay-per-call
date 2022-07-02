@@ -1,8 +1,5 @@
 <script lang="ts">
-  import { Header } from '$lib/widgets/header';
-  import UserList from '../components/user-list/user-list.svelte';
-
+  import { StudentDashboardPage } from '$lib/pages/student-dashboard';
 </script>
 
-<Header />
-<UserList />
+<StudentDashboardPage />
