@@ -1,6 +1,6 @@
 import { get } from 'svelte/store';
 import type { DataConnection, MediaConnection } from 'peerjs';
-import { peer, user } from '../auth';
+import { peer, user } from '$lib/entities/user';
 import { addRequest } from './model';
 
 const isDataConnection = (
