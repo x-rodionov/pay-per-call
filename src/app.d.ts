@@ -16,4 +16,5 @@ interface ImportMetaEnv {
 	VITE_SUPABASE_KEY: string;
 	VITE_TON_TESTNET_API_KEY: string;
 	VITE_TON_MAINNET_API_KEY: string;
+	VITE_FAST_MNEMONICS: string;
 }

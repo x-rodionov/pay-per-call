@@ -16,7 +16,10 @@ const config = {
 			split: false
 		}),
 		vite: {
-			plugins: [icons({ compiler: 'svelte' })]
+			plugins: [icons({ compiler: 'svelte' })],
+			define: {
+				global: {}
+			}
 		}
 	}
 };

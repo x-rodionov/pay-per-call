@@ -1,3 +1,15 @@
+<script lang="ts" context="module">
+  import {goto} from '$app/navigation';
+  import {initialAuth} from '$lib/features/auth';
+
+  const loggedIn = initialAuth();
+  if (loggedIn) {
+    goto('/student');
+  } else {
+    goto('/');
+  }
+</script>
+
 <script>
 	import '@fontsource/roboto-slab/700.css';
 	import '@fontsource/roboto-slab/600.css';

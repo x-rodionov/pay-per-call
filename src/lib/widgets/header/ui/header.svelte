@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import IconLogout from '~icons/material-symbols/logout';
 	import IconEdit from '~icons/material-symbols/edit-outline';
 
 	import { user } from '$lib/entities/user';
+	import { logout } from '$lib/features/auth';
 	import { FlatIconButton } from '$lib/shared/ui';
 
 	import Branding from './branding.svelte';
@@ -16,6 +16,6 @@
 	<div class="flex items-center">
 		Hello, {$user?.wallet_id}!
 		<FlatIconButton label="Edit username" icon={IconEdit} class="ml-2" />
-		<FlatIconButton label="Log out" icon={IconLogout} on:click={() => goto('/')} />
+		<FlatIconButton label="Log out" icon={IconLogout} on:click={logout} />
 	</div>
 </header>
