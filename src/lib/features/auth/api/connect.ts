@@ -7,12 +7,12 @@ import { getPeerId } from '$lib/entities/user';
 import { getKeyPairAndWallet } from '$lib/shared/api/ton';
 
 export const connect = async (name: string, mnemonic: string[]) => {
-	const ton = await getKeyPairAndWallet(mnemonic);
+	const { wallet } = await getKeyPairAndWallet(mnemonic);
+	const walletAddress = wallet.address!.toString(true, true, true);
 
-
-	let user = await findUser(name);
+	let user = await findUser(walletAddress);
 	if (!user) {
-		user = await createUser({ wallet_id: name });
+		user = await createUser({ wallet_id: walletAddress, name });
 		if (!user) {
 			throw new Error("Couldn't create a user");
 		}
@@ -26,5 +26,5 @@ export const connect = async (name: string, mnemonic: string[]) => {
 
 	peerStore.set(peer);
 	userStore.set(user);
-	walletStore.set(ton.wallet);
+	walletStore.set(wallet);
 };

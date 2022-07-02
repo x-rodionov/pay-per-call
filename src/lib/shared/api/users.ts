@@ -3,6 +3,7 @@ import { supabase } from '$lib/shared/api/supabase';
 export interface User {
 	id: number;
 	wallet_id: string;
+	name: string;
 }
 
 export const fetchUsers = async () => {
