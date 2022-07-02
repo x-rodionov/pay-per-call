@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { CTAButton } from '$lib/shared/ui';
-	import type { User } from '../../../../utils/users';
+	import type { User } from '$lib/shared/api/users';
 
 	export let tutor: User;
 

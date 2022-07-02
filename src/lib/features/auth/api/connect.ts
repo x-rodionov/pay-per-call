@@ -2,7 +2,7 @@ import Peer from 'peerjs';
 
 import { peer as peerStore, user as userStore, wallet as walletStore } from '$lib/entities/user';
 
-import { createUser, findUser } from '../../../../utils/users';
+import { createUser, findUser } from '$lib/shared/api/users';
 import { getPeerId } from '$lib/entities/user';
 import { getKeyPairAndWallet } from '$lib/shared/api/ton';
 

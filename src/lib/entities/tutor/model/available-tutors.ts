@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { fetchUsers, type User } from '../../../../utils/users';
+import { fetchUsers, type User } from '$lib/shared/api/users';
 
 export const availableTutors = writable<User[]>([], () => {
 	fetchUserList();
