@@ -20,7 +20,7 @@ export async function fillUserInfo(wallet: WalletV3ContractR1, name?: string) {
 		port: 9000,
 		path: '/myapp'
 	});
-
+	peer.on('error', console.error);
 	peerStore.set(peer);
 	userStore.set(user);
 	walletStore.set(wallet);
