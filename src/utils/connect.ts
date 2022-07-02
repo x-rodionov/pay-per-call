@@ -1,8 +1,8 @@
 import Peer from 'peerjs';
-import { createUser, findUser } from './users';
+import { createUser, findUser, type User } from './users';
 import { getPeerId } from './get-peer-id';
 
-export const connect = async (name: string): Promise<Peer> => {
+export const connect = async (name: string): Promise<{ peer: Peer; user: User }> => {
 	const peer = new Peer(getPeerId(name));
 
 	let user = await findUser(name);
@@ -13,9 +13,5 @@ export const connect = async (name: string): Promise<Peer> => {
 		}
 	}
 
-	return new Promise((resolve) => {
-		peer.on('open', () => {
-			resolve(peer);
-		});
-	});
+	return { peer, user: user! };
 };

@@ -7,7 +7,6 @@ export interface User {
 
 export const fetchUsers = async () => {
 	const res = await supabase.from<User>('users').select('*');
-	console.log(res);
 	return res.data || [];
 };
 
