@@ -2,7 +2,7 @@
   import { FlatIconButton, TextField } from '$lib/shared/ui';
   import IconEdit from '~icons/material-symbols/edit-outline';
   import type { User } from '../../../shared/api/users';
-  import { changeUserName } from '../../../shared/api/users';
+  import { changeUserField } from '../../../shared/api/users';
   
   export let user: User;
   
@@ -10,7 +10,7 @@
   
   const changeName = async () => {
     editing = false;
-    await changeUserName(user.wallet_id, user.name);
+    await changeUserField(user.wallet_id, { field: 'name', value: user.name });
   };
   
   const changeOnBlur = () => {

@@ -7,11 +7,12 @@
   export let id: string;
   export let label: string;
 	export let value = '';
+	export let wrapperClass = '';
 
 	export let labelInline = false;
 </script>
 
-<div class={clsx('flex', labelInline ? 'items-center' : 'flex-col',)}>
+<div class={clsx('flex', labelInline ? 'items-center' : 'flex-col', wrapperClass)}>
 	<label
     for={id}
     class={clsx(
@@ -40,6 +41,7 @@
 			_class
 		)}
 		on:blur
+		on:input
     {...$$restProps}
 	/>
 </div>
