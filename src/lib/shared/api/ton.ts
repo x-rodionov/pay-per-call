@@ -36,6 +36,7 @@ export async function getKeyPairAndWallet(mnemonics: string[], password?: string
 	}
 	const keyPair = await mnemonicToKeyPair(mnemonics, password);
 	const wallet = tonweb.wallet.create({ publicKey: keyPair.publicKey });
+	wallet.address = await wallet.getAddress();
 	localStorage.setItem('privateKey', JSON.stringify(Array.from(keyPair.secretKey)));
 	localStorage.setItem('publicKey', JSON.stringify(Array.from(keyPair.publicKey)));
 	return {

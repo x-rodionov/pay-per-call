@@ -5,9 +5,13 @@ export const initialAuth = () => {
 	const data = getPersistedWallet();
 	if (typeof data === 'undefined') return false;
 
-	// TODO: get wallet ID, fetch supabase to get the user data
-	// For now, the data.wallet.address is always null
-	walletStore.set(data.wallet);
+	// Populate the wallet address field
+	// Not sure if this will cause race conditions. It might be better to transform into an async function
+	const { wallet } = data;
+	wallet.getAddress().then((address) => {
+		wallet.address = address;
+		walletStore.set(wallet);
+	});
 
 	return true;
 };
