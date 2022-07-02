@@ -1,11 +1,13 @@
 <script lang="ts">
-	import Branding from './branding.svelte';
+	import { goto } from '$app/navigation';
 	import { TeachSelector } from '../teach-selector';
 	import IconLogout from '~icons/material-symbols/logout';
 	import IconEdit from '~icons/material-symbols/edit-outline';
 
 	import { user } from '$lib/entities/user';
 	import { FlatIconButton } from '$lib/shared/ui';
+
+	import Branding from './branding.svelte';
 </script>
 
 <header class="flex justify-between items-center px-12 lg:px-40 py-12">
@@ -14,6 +16,6 @@
 	<div class="flex items-center">
 		Hello, {$user?.wallet_id}!
 		<FlatIconButton label="Edit username" icon={IconEdit} class="ml-2" />
-		<FlatIconButton label="Log out" icon={IconLogout} />
+		<FlatIconButton label="Log out" icon={IconLogout} on:click={() => goto('/')} />
 	</div>
 </header>
