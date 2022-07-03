@@ -30,7 +30,7 @@
   </main>
   {#if $activeCall !== null}
     <div class="py-6 flex justify-center items-center space-x-10">
-      <span class="font-bold">$activeCall.metadata.tutor.course</span>
+      <span class="font-bold">{$activeCall.metadata.tutor.course}</span>
       <span>13:37 / 60:00</span>
       <CTAButton class="px-12 py-4 bg-orange-500 hover:bg-orange-600 focus:ring-orange-200 dark:bg-orange-300 dark:hover:bg-orange-400 dark:focus:ring-orange-800">
         <IconCallEnd class="w-8 h-8" />
