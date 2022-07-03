@@ -14,7 +14,6 @@
 - 🌐 Peer-to-peer communication and blockchain technologies make the platform decentralized
 - 💎 Powered by TON
 
-
 <details>
   <summary><strong>Screenshots from the Student POV</strong></summary>
   <table>
@@ -27,7 +26,6 @@
     </tbody>
   </table>
 </details>
-
 
 <details>
   <summary><strong>Screenshots from the Tutor POV</strong></summary>

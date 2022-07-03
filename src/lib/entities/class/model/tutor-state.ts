@@ -7,7 +7,7 @@ export enum ClassStateTutor {
   MEDIA_RECEIVED = '5:MEDIA_RECEIVED',
   WAITING_FOR_TRANSACTIONS = '6:WAITING_FOR_TRANSACTIONS',
   TRANSACTION_RECEIVED = '7:TRANSACTION_RECEIVED',
-  CLOSING = '8:CLOSING',
+  CLOSING = '8:CLOSING'
 }
 
 export const classStateTutor = writable<ClassStateTutor | undefined>(undefined);

@@ -6,12 +6,12 @@ import { peer as peerStore } from '$lib/entities/peer';
 import { removeKeys } from '$lib/shared/api/ton';
 
 export const logout = () => {
-	removeKeys();
+  removeKeys();
 
-	get(peerStore)?.destroy();
-	peerStore.set(null);
-	userStore.set(null);
-	walletStore.set(null);
+  get(peerStore)?.destroy();
+  peerStore.set(null);
+  userStore.set(null);
+  walletStore.set(null);
 
-	goto('/');
+  goto('/');
 };

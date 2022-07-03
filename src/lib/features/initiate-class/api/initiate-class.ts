@@ -13,21 +13,21 @@ import { getValidPeer, activeConnection } from '$lib/entities/peer';
  * @param classDuration The duration of the class in minutes.
  */
 export async function initiateClass(them: User, classDuration: number = 60) {
-	try {
-		const $peer = getValidPeer();
+  try {
+    const $peer = getValidPeer();
 
-		const connection = $peer.connect(getPeerId(them), {
-			metadata: {
-				tutor: them,
-				tutee: get(user),
-				classDuration
-			}
-		});
+    const connection = $peer.connect(getPeerId(them), {
+      metadata: {
+        tutor: them,
+        tutee: get(user),
+        classDuration
+      }
+    });
 
-		activeConnection.set(connection);
-		classStateTutee.subscribe(classStateMachineTutee(connection));
-		classStateTutee.set(CSTT.WAITING_FOR_DATA_ACCEPTANCE);
-	} catch (e) {
-		console.error('The peer is g0ne/disconnected (somehow)');
-	}
+    activeConnection.set(connection);
+    classStateTutee.subscribe(classStateMachineTutee(connection));
+    classStateTutee.set(CSTT.WAITING_FOR_DATA_ACCEPTANCE);
+  } catch (e) {
+    console.error('The peer is g0ne/disconnected (somehow)');
+  }
 }
