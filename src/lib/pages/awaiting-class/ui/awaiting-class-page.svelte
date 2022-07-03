@@ -2,11 +2,11 @@
   import { goto } from '$app/navigation';
   import IconHourglassBottom from '~icons/material-symbols/hourglass-bottom';
 
-  import { activeCall } from '$lib/entities/peer';
+  import { activeConnection } from '$lib/entities/peer';
   import { CTAButton, H1 } from '$lib/shared/ui';
 
   const cancelSession = () => {
-    $activeCall?.close();
+    $activeConnection?.close();
     goto('/student');
   };
 </script>
@@ -20,8 +20,8 @@
     </div>
     <CTAButton class="px-12 py-4 bg-orange-500 hover:bg-orange-600 focus:ring-orange-200 dark:bg-orange-300 dark:hover:bg-orange-400 dark:focus:ring-orange-800" on:click={cancelSession}>Cancel</CTAButton>
   </div>
-  {#if $activeCall !== null}
-    <p class="font-light text-sm">{$activeCall.metadata.tutor.course}, {$activeCall.metadata.tutor.cost_per_minute} nTON/min</p>
+  {#if $activeConnection !== null}
+    <p class="font-light text-sm">{$activeConnection.metadata.tutor.course}, {$activeConnection.metadata.tutor.cost_per_minute} nTON/min</p>
   {:else}
     <p>No active call. <a href="/student" class="underline text-blue-500 dark:text-blue-300">Go back</a></p>
   {/if}
