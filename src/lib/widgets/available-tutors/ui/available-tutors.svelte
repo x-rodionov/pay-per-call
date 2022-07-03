@@ -4,9 +4,11 @@
 	import { H1 } from '$lib/shared/ui';
 </script>
 
-<H1>Available tutors</H1>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 px-12 lg:px-40">
-	{#each $availableTutors as tutor}
-		<TutorMinicard {tutor} on:request={() => initiateClass(tutor)} />
-	{/each}
+<div class="px-12 lg:px-40">
+	<H1>Available tutors</H1>
+	<div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+		{#each $availableTutors as tutor}
+			<TutorMinicard {tutor} on:request={() => initiateClass(tutor)} />
+		{/each}
+	</div>
 </div>
