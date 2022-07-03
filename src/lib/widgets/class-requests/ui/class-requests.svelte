@@ -18,7 +18,7 @@
 
 <div>
 	{#each $incomingCalls as call}
-		<RequestCard {call} name="Splendid Banana" />
+		<RequestCard {call} name={call.metadata.name} />
 	{:else}
 		<div>Wait for the requests to appear...</div>
 	{/each}

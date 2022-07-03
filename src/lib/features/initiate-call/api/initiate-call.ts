@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
 import { goto } from '$app/navigation';
 
-import { peer, getPeerId, type User } from '$lib/entities/user';
+import { peer, getPeerId, type User, user as userStore } from '$lib/entities/user';
 import { streams } from '$lib/entities/stream';
 
 import { activeCall } from '../model/active-call';
@@ -15,7 +15,9 @@ export async function initiateCall(user: User) {
 		return;
 	}
 
-	const call = $peer.call(getPeerId(user), ourStream);
+	const call = $peer.call(getPeerId(user), ourStream, {
+		metadata: { name: get(userStore)?.name },
+	});
 	activeCall.set(call);
 	call
 		.on('stream', function (theirStream) {
