@@ -15,6 +15,7 @@ export async function fillUserInfo(wallet: WalletV3ContractR1, publicKey: Uint8A
 			wallet_id: walletAddress,
 			name: name ?? 'Anonymous',
 			public_key: publicKeyBase64,
+			cost_per_minute: '0.01',
 		});
 		if (!user) {
 			throw new Error("Couldn't create a user");

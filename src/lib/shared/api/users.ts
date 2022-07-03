@@ -6,8 +6,8 @@ export interface User {
 	public_key: string;
 	name: string;
 	course?: string | null;
-	/** In nano-TONS */
-	cost_per_minute?: string | null;
+	/** In nano-TONs */
+	cost_per_minute: string;
 	online?: boolean;
 }
 
