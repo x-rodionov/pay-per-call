@@ -75,17 +75,17 @@ export function removeKeys() {
 	localStorage.removeItem('publicKey');
 }
 
-function generateRandomBigNum() {
+export function generateRandomBigNum() {
 	const buffer = new Uint8Array(8);
 	window.crypto.getRandomValues(buffer);
 	return new BN(buffer);
 }
 
 type BigNumber = InstanceType<TonWeb['utils']['BN']>;
-interface ChannelConfig {
+export interface ChannelConfig {
 	channelId: BigNumber;
 	addressA: Address;
-	addressB: string;
+	addressB: Address;
 	initBalanceA: BigNumber;
 	initBalanceB: BigNumber;
 }
@@ -148,7 +148,7 @@ export async function requestLessonStart(tutor: User, lessonLength: number = 60)
 	const channelConfig: ChannelConfig = {
 		channelId: generateRandomBigNum(), // For each new channel there must be a new ID
 		addressA: myAddress,
-		addressB: tutorWalletAddress,
+		addressB: tutorWalletAddress as any,
 		initBalanceA: new BN(TonWeb.utils.fromNano(pricePerMin * lessonLength)),
 		initBalanceB: new BN(0)
 	};

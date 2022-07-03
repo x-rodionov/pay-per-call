@@ -3,7 +3,7 @@
   import IconCallEnd from '~icons/material-symbols/call-end-outline';
   import { goto } from '$app/navigation';
 
-  import { activeCall } from '$lib/features/initiate-call';
+  import { activeCall } from '$lib/entities/peer';
 	import { streams } from '$lib/entities/stream';
   import { user } from '$lib/entities/user';
   import { CTAButton } from '$lib/shared/ui';

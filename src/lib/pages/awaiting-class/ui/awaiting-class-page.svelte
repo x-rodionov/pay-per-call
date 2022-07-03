@@ -2,7 +2,7 @@
   import { goto } from '$app/navigation';
   import IconHourglassBottom from '~icons/material-symbols/hourglass-bottom';
 
-  import { activeCall } from '$lib/features/initiate-call';
+  import { activeCall } from '$lib/entities/peer';
   import { CTAButton, H1 } from '$lib/shared/ui';
 
   const cancelSession = () => {
