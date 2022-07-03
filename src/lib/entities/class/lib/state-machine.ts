@@ -7,14 +7,14 @@ import { classState, ClassState as CS } from '../model/state';
 import { streams } from '$lib/entities/stream';
 import { get } from 'svelte/store';
 import { getPeerId } from '$lib/entities/user';
-import { tonweb } from '$lib/shared/api/ton';
+import { tonweb, type ChannelConfig } from '$lib/shared/api/ton';
 import {
 	createChannelTutee,
 	generateInitState,
 	generatePCConfig,
 	getStateForSeqno,
 	getTuteeWalletSender,
-	type ChannelConfig,
+	serializeChannelConfig,
 	type PaymentChannel
 } from '$lib/shared/api/ton-v2';
 import TonWeb from 'tonweb';
@@ -27,9 +27,14 @@ export function classStateMachine(connection: DataConnection) {
 	let everySecond: ReturnType<typeof setInterval>;
 	let seqno = 0;
 
-	return async function (state: CS) {
+	return async function (state: CS | undefined) {
+		if (state === undefined) {
+			return;
+		}
+
 		switch (state) {
 			case CS.WAITING_FOR_DATA_ACCEPTANCE: {
+				console.log('[SM] Waiting for data acceptance');
 				function selfDestructOnDataAccepted() {
 					classState.set(CS.DATA_ACCEPTED);
 					connection.off('open', selfDestructOnDataAccepted);
@@ -40,14 +45,18 @@ export function classStateMachine(connection: DataConnection) {
 				break;
 			}
 			case CS.DATA_ACCEPTED: {
+				console.log('[SM] Data accepted');
 				const { tutor, classDuration } = connection.metadata as ConnectionMetadata;
 				channelConfig = await generatePCConfig(tutor, classDuration);
-				connection.send(channelConfig);
+				console.log('[SM] Channel config generated', channelConfig);
+				connection.send(serializeChannelConfig(channelConfig));
 				channelTuteeSide = createChannelTutee(channelConfig, tutor);
+				console.log('[SM] Channel tutee side created', channelTuteeSide);
 				classState.set(CS.WAITING_FOR_PC_CONFIG_ACK);
 				break;
 			}
 			case CS.WAITING_FOR_PC_CONFIG_ACK: {
+				console.log('[SM] Waiting for PC config ack');
 				function selfDestructOnData() {
 					classState.set(CS.PC_CONFIG_ACKED);
 					connection.off('data', selfDestructOnData);
@@ -57,6 +66,7 @@ export function classStateMachine(connection: DataConnection) {
 				break;
 			}
 			case CS.PC_CONFIG_ACKED: {
+				console.log('[SM] PC config acked');
 				const fromWalletTutee = getTuteeWalletSender(channelTuteeSide);
 
 				await fromWalletTutee.deploy().send(TonWeb.utils.toNano('0.05'));
@@ -68,6 +78,7 @@ export function classStateMachine(connection: DataConnection) {
 				break;
 			}
 			case CS.BC_WAITING_FOR_TOP_UP: {
+				console.log('[SM] BC waiting for top up');
 				const fromWalletTutee = getTuteeWalletSender(channelTuteeSide);
 
 				await fromWalletTutee
@@ -84,6 +95,7 @@ export function classStateMachine(connection: DataConnection) {
 				break;
 			}
 			case CS.BC_WAITING_FOR_CHANNEL_INIT: {
+				console.log('[SM] BC waiting for channel init');
 				const fromWalletTutee = getTuteeWalletSender(channelTuteeSide);
 
 				await fromWalletTutee
@@ -100,6 +112,7 @@ export function classStateMachine(connection: DataConnection) {
 				break;
 			}
 			case CS.READY_FOR_TRANSACTIONS: {
+				console.log('[SM] Ready for transactions');
 				const { tutor } = connection.metadata as ConnectionMetadata;
 				ourStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
 				call = get(peer)!.call(getPeerId(tutor), ourStream);
@@ -107,6 +120,7 @@ export function classStateMachine(connection: DataConnection) {
 				break;
 			}
 			case CS.WAITING_FOR_MEDIA_ACCEPTANCE: {
+				console.log('[SM] Waiting for media acceptance');
 				function selfDestructOnStream(theirStream: MediaStream) {
 					streams.set([ourStream, theirStream]);
 					activeCall.set(call);
@@ -119,6 +133,7 @@ export function classStateMachine(connection: DataConnection) {
 				break;
 			}
 			case CS.MEDIA_ACCEPTED: {
+				console.log('[SM] Media accepted');
 				everySecond =
 					everySecond ??
 					setInterval(async () => {
@@ -134,6 +149,7 @@ export function classStateMachine(connection: DataConnection) {
 				break;
 			}
 			case CS.WAITING_FOR_APPROVAL: {
+				console.log('[SM] Waiting for approval');
 				async function selfDestructOnData(data: any) {
 					connection.off('data', selfDestructOnData);
 					if (data === 'ack') {

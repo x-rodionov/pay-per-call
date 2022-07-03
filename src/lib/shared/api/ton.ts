@@ -40,8 +40,8 @@ export async function getKeyPairAndWallet(mnemonics: string[], password?: string
 	const keyPair = await mnemonicToKeyPair(mnemonics, password);
 	const wallet = tonweb.wallet.create({ publicKey: keyPair.publicKey });
 	wallet.address = await wallet.getAddress();
-	localStorage.setItem('privateKey', JSON.stringify(Array.from(keyPair.secretKey)));
-	localStorage.setItem('publicKey', JSON.stringify(Array.from(keyPair.publicKey)));
+	localStorage.setItem('privateKey', TonWeb.utils.bytesToBase64(keyPair.secretKey));
+	localStorage.setItem('publicKey', TonWeb.utils.bytesToBase64(keyPair.publicKey));
 	return {
 		keyPair,
 		wallet
@@ -58,8 +58,8 @@ export function getPersistedWallet() {
 	const publicKey = localStorage.getItem('publicKey');
 	if (privateKey && publicKey) {
 		const keyPair: KeyPair = {
-			secretKey: new Uint8Array(JSON.parse(privateKey)),
-			publicKey: new Uint8Array(JSON.parse(publicKey))
+			secretKey: TonWeb.utils.base64ToBytes(privateKey),
+			publicKey: TonWeb.utils.base64ToBytes(publicKey)
 		};
 		const wallet = tonweb.wallet.create({ publicKey: keyPair.publicKey });
 		return {

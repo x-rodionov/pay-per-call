@@ -40,7 +40,7 @@ export type PaymentChannel = {
 export async function generatePCConfig(tutor: User, classDuration: number): Promise<ChannelConfig> {
 	const { wallet: myWallet } = getPersistedWallet()!;
 	const tutorWallet = tonweb.wallet.create({
-		publicKey: tutor.public_key
+		publicKey: TonWeb.utils.base64ToBytes(tutor.public_key)
 	});
 
 	const pricePerMin = new BN(tutor.cost_per_minute);
@@ -92,5 +92,15 @@ export function getStateForSeqno(seqno: number, channelConfig: ChannelConfig, tu
 		balanceB,
 		seqnoA: new BN(seqno),
 		seqnoB: new BN(0)
+	};
+}
+
+export function serializeChannelConfig(channelConfig: ChannelConfig) {
+	return {
+		channelId: channelConfig.channelId.toString(),
+		addressA: channelConfig.addressA,
+		addressB: channelConfig.addressB,
+		initBalanceA: channelConfig.initBalanceA.toString(),
+		initBalanceB: channelConfig.initBalanceB.toString(),
 	};
 }

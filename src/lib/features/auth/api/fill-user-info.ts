@@ -7,7 +7,7 @@ import { createUser, findUser } from '$lib/shared/api/users';
 
 export async function fillUserInfo(wallet: WalletV3ContractR1, publicKey: Uint8Array, name?: string) {
 	const walletAddress = wallet.address!.toString(true, true, true);
-    let user = await findUser(walletAddress);
+	let user = await findUser(walletAddress);
 	const publicKeyBase64 = Buffer.from(publicKey.buffer).toString('base64');
 
 	if (!user) {
