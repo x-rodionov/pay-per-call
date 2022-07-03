@@ -7,10 +7,10 @@ export const initialAuth = () => {
 
 	// Populate the wallet address field
 	// Not sure if this will cause race conditions. It might be better to transform into an async function
-	const { wallet } = data;
+	const { wallet, keyPair } = data;
 	wallet.getAddress().then(async (address) => {
 		wallet.address = address;
-		await fillUserInfo(wallet);
+		await fillUserInfo(wallet, keyPair.publicKey);
 	});
 
 	return true;

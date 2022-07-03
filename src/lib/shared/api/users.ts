@@ -3,8 +3,10 @@ import { supabase } from '$lib/shared/api/supabase';
 export interface User {
 	id: number;
 	wallet_id: string;
+	public_key: string;
 	name: string;
 	course?: string | null;
+	/** In nano-TONS */
 	cost_per_minute?: string | null;
 	online?: boolean;
 }
