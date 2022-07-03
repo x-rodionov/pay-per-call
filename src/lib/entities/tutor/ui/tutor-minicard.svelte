@@ -12,7 +12,7 @@
   const dispatch = createEventDispatcher<{ request: User }>();
 </script>
 
-<article class="rounded-lg light:shadow bg-white dark:bg-slate-700">
+<article class="rounded-lg shadow-md dark:shadow-none bg-white dark:bg-slate-700">
 	<div class="flex flex-col px-8 py-6 space-y-1">
 		<h2 class="text-xl">{tutor.name}</h2>
 		<div class="flex items-center">
