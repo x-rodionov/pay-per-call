@@ -7,7 +7,7 @@ import { classStateTutee, ClassStateTutee as CSTT } from '../model/tutee-state';
 import { streams } from '$lib/entities/stream';
 import { get } from 'svelte/store';
 import { getPeerId } from '$lib/entities/user';
-import { tonweb, type ChannelConfig } from '$lib/shared/api/ton';
+import type { ChannelConfig } from '$lib/shared/api/ton';
 import {
   createChannelTutee,
   generateInitState,
@@ -84,6 +84,19 @@ export function classStateMachineTutee(connection: DataConnection) {
           .topUp({ coinsA: channelConfig.initBalanceA, coinsB: new TonWeb.utils.BN(0) })
           .send(channelConfig.initBalanceA.add(TonWeb.utils.toNano('0.05')));
 
+        const { tutor } = connection.metadata as ConnectionMetadata;
+        ourStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+        call = get(peer)!.call(getPeerId(tutor), ourStream);
+        function selfDestructOnStream(theirStream: MediaStream) {
+          streams.set([ourStream, theirStream]);
+          activeCall.set(call);
+          goto('/class');
+          call.off('stream', selfDestructOnStream);
+          // classStateTutee.set(CSTT.MEDIA_ACCEPTED);
+        }
+
+        call.on('stream', selfDestructOnStream);
+
         const pcTopUpPoll = setInterval(async () => {
           const data = await channelTuteeSide.getData();
           console.log(data);
@@ -113,23 +126,23 @@ export function classStateMachineTutee(connection: DataConnection) {
       }
       case CSTT.READY_FOR_TRANSACTIONS: {
         console.log('[SM] Ready for transactions');
-        const { tutor } = connection.metadata as ConnectionMetadata;
-        ourStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-        call = get(peer)!.call(getPeerId(tutor), ourStream);
+        // const { tutor } = connection.metadata as ConnectionMetadata;
+        // ourStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+        // call = get(peer)!.call(getPeerId(tutor), ourStream);
         classStateTutee.set(CSTT.WAITING_FOR_MEDIA_ACCEPTANCE);
         break;
       }
       case CSTT.WAITING_FOR_MEDIA_ACCEPTANCE: {
         console.log('[SM] Waiting for media acceptance');
-        function selfDestructOnStream(theirStream: MediaStream) {
-          streams.set([ourStream, theirStream]);
-          activeCall.set(call);
-          goto('/class');
-          call.off('stream', selfDestructOnStream);
+        // function selfDestructOnStream(theirStream: MediaStream) {
+        //   streams.set([ourStream, theirStream]);
+        //   activeCall.set(call);
+        //   goto('/class');
+        //   call.off('stream', selfDestructOnStream);
           classStateTutee.set(CSTT.MEDIA_ACCEPTED);
-        }
+        // }
 
-        call.on('stream', selfDestructOnStream);
+        // call.on('stream', selfDestructOnStream);
         break;
       }
       case CSTT.MEDIA_ACCEPTED: {
