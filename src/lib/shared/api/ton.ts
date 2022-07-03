@@ -2,6 +2,9 @@ import TonWeb, { type AddressType } from 'tonweb';
 import { type KeyPair, isPasswordNeeded, mnemonicToKeyPair } from 'tonweb-mnemonic';
 import type { WalletV3ContractBase } from 'tonweb/dist/types/contract/wallet/v3/wallet-v3-contract-base';
 import { TON_MAINNET_API_KEY, TON_TESTNET_API_KEY } from '$lib/shared/lib/env';
+import type { User } from '$lib/shared/api/users';
+import type { WalletV3ContractR1 } from 'tonweb/dist/types/contract/wallet/v3/wallet-v3-contract-r1';
+import type { Address } from 'tonweb/dist/types/utils/address';
 
 const TEST_MODE = true;
 
@@ -81,7 +84,7 @@ function generateRandomBigNum() {
 type BigNumber = InstanceType<TonWeb['utils']['BN']>;
 interface ChannelConfig {
 	channelId: BigNumber;
-	addressA: AddressType;
+	addressA: Address;
 	addressB: string;
 	initBalanceA: BigNumber;
 	initBalanceB: BigNumber;
@@ -104,7 +107,9 @@ type FromWallet = {
 	close(state: ChannelState & { hisSignature: string }): void;
 };
 type PaymentChannel = {
-	getAddress(): string;
+	getAddress(): Promise<{
+		toString(isUserFriendly?: boolean, isUrlSafe?: boolean, isBounceable?: boolean): string;
+	}>;
 	getData(): Promise<{ balanceA: BigNumber; balanceB: BigNumber }>;
 	fromWallet(options: { wallet: WalletV3ContractBase; secretKey: Uint8Array }): FromWallet;
 	signState(state: ChannelState): Promise<string>;
@@ -122,7 +127,7 @@ interface TonWebWithPayments extends TonWeb {
 			config: ChannelConfig & {
 				isA: boolean;
 				myKeyPair: KeyPair;
-				hisPublicKey: string;
+				hisPublicKey: Uint8Array;
 			}
 		): PaymentChannel;
 	};
@@ -131,20 +136,20 @@ interface TonWebWithPayments extends TonWeb {
 /**
  * To be used by the tutee to request that the tutor start the lesson (and hence payment channel).
  */
-export async function requestLessonStart(keyPair: KeyPair, lessonId: string, minutes: number) {
-	// TODO: request lesson info from Supabase to get the tutor's wallet address and minute price
-	const tutorWalletAddress = '';
-	/** In nanoTONs */
-	const pricePerMin = 1;
-	const tutorPublicKey = '';
+export async function requestLessonStart(tutor: User, lessonLength: number = 60) {
+	const { wallet: myWallet, keyPair } = getPersistedWallet()!;
 
-	const myWallet = tonweb.wallet.create({ publicKey: keyPair.publicKey });
+	const tutorWalletAddress = tutor.wallet_id;
+	const pricePerMin = Number(tutor.cost_per_minute);
+	const tutorPublicKey = new Uint8Array(Buffer.from(tutor.public_key, 'base64'));
+
+	const myAddress = await myWallet.getAddress();
 
 	const channelConfig: ChannelConfig = {
 		channelId: generateRandomBigNum(), // For each new channel there must be a new ID
-		addressA: myWallet.address!,
+		addressA: myAddress,
 		addressB: tutorWalletAddress,
-		initBalanceA: new BN(TonWeb.utils.fromNano(pricePerMin * minutes)),
+		initBalanceA: new BN(TonWeb.utils.fromNano(pricePerMin * lessonLength)),
 		initBalanceB: new BN(0)
 	};
 
@@ -152,40 +157,43 @@ export async function requestLessonStart(keyPair: KeyPair, lessonId: string, min
 		...channelConfig,
 		isA: true,
 		myKeyPair: keyPair,
-		hisPublicKey: tutorPublicKey
+		hisPublicKey: tutorPublicKey,
+	});
+
+	const fromWallet = tuteeChannel.fromWallet({
+		wallet: myWallet,
+		secretKey: keyPair.secretKey,
 	});
 
 	return {
 		channel: tuteeChannel,
-		channelConfig
+		channelConfig,
+		fromWallet,
 	};
 }
 
 /**
  * To be called by the tutor after the tutee requests a lesson and sends the channel config.
  */
-export async function acceptLessonStart(
-	keyPair: KeyPair,
-	channelConfig: ChannelConfig,
-	tuteePublicKey: string
-) {
-	const myWallet = tonweb.wallet.create({ publicKey: keyPair.publicKey });
+export async function acceptLessonStart(tutee: User, channelConfig: ChannelConfig) {
+	const { wallet: myWallet, keyPair } = getPersistedWallet()!;
+	const tuteePublicKey = new Uint8Array(Buffer.from(tutee.public_key, 'base64'));
 
-	const tuteeChannel = tonweb.payments.createChannel({
+	const tutorChannel = tonweb.payments.createChannel({
 		...channelConfig,
 		isA: false,
 		myKeyPair: keyPair,
-		hisPublicKey: tuteePublicKey
+		hisPublicKey: tuteePublicKey,
 	});
 
-	const fromWallet = tuteeChannel.fromWallet({
+	const fromWallet = tutorChannel.fromWallet({
 		wallet: myWallet,
-		secretKey: keyPair.secretKey
+		secretKey: keyPair.secretKey,
 	});
 
 	return {
-		channel: tuteeChannel,
-		fromWallet
+		channel: tutorChannel,
+		fromWallet,
 	};
 }
 
@@ -194,8 +202,5 @@ export async function acceptLessonStart(
  */
 async function confirmChannelAcceptance(keyPair: KeyPair) {
 	// const myWallet = tonweb.wallet.create({ publicKey: keyPair.publicKey });
-	// const fromWalletA = channelA.fromWallet({
-	// 	wallet: walletA,
-	// 	secretKey: keyPairA.secretKey
-	// });
+
 }

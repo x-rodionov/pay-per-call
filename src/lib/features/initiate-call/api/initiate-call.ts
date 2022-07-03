@@ -6,9 +6,12 @@ import { streams } from '$lib/entities/stream';
 import type { User } from '$lib/shared/api/users';
 
 import { activeCall } from '../model/active-call';
+import { requestLessonStart } from '$lib/shared/api/ton';
+import TonWeb from 'tonweb';
 
 export async function initiateCall(user: User) {
 	const ourStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+	const { channelConfig, channel, fromWallet } = await requestLessonStart(user);
 
 	const $peer = get(peer);
 	if ($peer === null) {
@@ -20,12 +23,19 @@ export async function initiateCall(user: User) {
 		metadata: {
 			tutee: get(userStore),
 			tutor: user,
+			paymentChannelConfig: channelConfig,
+			channelAddress: (await channel.getAddress()).toString(true, true, true),
 		},
 	});
 	activeCall.set(call);
 
 	call
-		.on('stream', function (theirStream) {
+		.on('stream', async function (theirStream) {
+			// Call was accepted
+			await fromWallet.deploy().send(TonWeb.utils.toNano('0.05'));
+			await fromWallet
+				.topUp({coinsA: channelConfig.initBalanceA, coinsB: new TonWeb.utils.BN(0)})
+				.send(channelConfig.initBalanceA.add(TonWeb.utils.toNano('0.05')));
 			streams.set([ourStream, theirStream]);
 			goto('/class');
 		})
