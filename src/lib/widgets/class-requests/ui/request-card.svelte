@@ -1,17 +1,21 @@
 <script lang="ts">
-	import type { MediaConnection } from 'peerjs';
+	import { createEventDispatcher } from 'svelte';
 
-	import { acceptCall } from '$lib/features/accept-call';
+	import type { ConnectionMetadata } from '$lib/entities/peer';
 	import { CTAButton, OutlineButton } from '$lib/shared/ui';
 
-	export let name: string;
-	export let call: MediaConnection;
+	export let metadata: ConnectionMetadata;
+
+	const dispatch = createEventDispatcher<{ accept: void }>();
 </script>
 
 <article class="flex justify-between items-center py-4 border-b border-gray-400">
-	<h2 class="text-xl">{name}</h2>
+	<div class="flex flex-col space-y-1">
+		<h2 class="text-xl">{metadata.tutee.name}</h2>
+		<span class="font-roboto-mono text-sm">{metadata.classDuration} minutes</span>
+	</div>
 	<div class="flex">
-		<CTAButton class="mr-2" on:click={() => acceptCall(call)}>Join</CTAButton>
+		<CTAButton class="mr-2" on:click={() => dispatch('accept')}>Join</CTAButton>
 		<OutlineButton>Cancel</OutlineButton>
 	</div>
 </article>
