@@ -17,9 +17,13 @@ export async function initiateCall(user: User) {
 	}
 
 	const call = $peer.call(getPeerId(user), ourStream, {
-		metadata: { name: get(userStore)?.name },
+		metadata: {
+			tutee: get(userStore),
+			tutor: user,
+		},
 	});
 	activeCall.set(call);
+
 	call
 		.on('stream', function (theirStream) {
 			streams.set([ourStream, theirStream]);

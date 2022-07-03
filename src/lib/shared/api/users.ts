@@ -4,8 +4,8 @@ export interface User {
 	id: number;
 	wallet_id: string;
 	name: string;
-	course: string | null;
-	cost_per_minute: string | null;
+	course?: string | null;
+	cost_per_minute?: string | null;
 	online?: boolean;
 }
 
