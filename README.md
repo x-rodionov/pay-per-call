@@ -14,6 +14,34 @@
 - 🌐 Peer-to-peer communication and blockchain technologies make the platform decentralized
 - 💎 Powered by TON
 
+
+<details>
+  <summary><strong>Screenshots from the Student POV</strong></summary>
+  <table>
+    <tbody>
+      <tr>
+        <td><img alt="Landing page" src="./.github/assets/screenshots/tutee-1.png" /></td>
+        <td><img alt="The list of tutors" src="./.github/assets/screenshots/tutee-2.png" /></td>
+        <td><img alt="Waiting for a tutor to join" src="./.github/assets/screenshots/tutee-3.png" /></td>
+      </tr>
+    </tbody>
+  </table>
+</details>
+
+
+<details>
+  <summary><strong>Screenshots from the Tutor POV</strong></summary>
+  <table>
+    <tbody>
+      <tr>
+        <td><img alt="Landing page" src="./.github/assets/screenshots/tutor-1.png" /></td>
+        <td><img alt="Authorization screen" src="./.github/assets/screenshots/tutor-2.png" /></td>
+        <td><img alt="Tutor page with class requests" src="./.github/assets/screenshots/tutor-3.png" /></td>
+      </tr>
+    </tbody>
+  </table>
+</details>
+
 ## Running locally
 
 Run it like any other Node.js app, first the dependencies, then the `dev` script:
