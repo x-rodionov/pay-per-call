@@ -1,9 +1,11 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+  import { onMount } from 'svelte';
   import IconCallEnd from '~icons/material-symbols/call-end-outline';
+  import { goto } from '$app/navigation';
 
   import { activeCall } from '$lib/features/initiate-call';
 	import { streams } from '$lib/entities/stream';
+  import { user } from '$lib/entities/user';
   import { CTAButton } from '$lib/shared/ui';
 
 	let myVideoEl: HTMLVideoElement;
@@ -19,6 +21,15 @@
 		myVideoEl.srcObject = myStream;
 		myVideoEl.play();
 	});
+
+  function hangUp() {
+    if ($activeCall !== null) {
+      $activeCall.close();
+      if ($user !== null) {
+        goto($user.id === $activeCall.metadata.tutor.id ? '/tutor' : '/student');
+      }
+    }
+  }
 </script>
 
 <div class="flex-1 flex flex-col justify-between before:w-0">
@@ -32,7 +43,7 @@
     <div class="py-6 flex justify-center items-center space-x-10">
       <span class="font-bold">{$activeCall.metadata.tutor.course}</span>
       <span>13:37 / 60:00</span>
-      <CTAButton class="px-12 py-4 bg-orange-500 hover:bg-orange-600 focus:ring-orange-200 dark:bg-orange-300 dark:hover:bg-orange-400 dark:focus:ring-orange-800">
+      <CTAButton on:click={hangUp} class="px-12 py-4 bg-orange-500 hover:bg-orange-600 focus:ring-orange-200 dark:bg-orange-300 dark:hover:bg-orange-400 dark:focus:ring-orange-800">
         <IconCallEnd class="w-8 h-8" />
       </CTAButton>
     </div>
