@@ -15,11 +15,7 @@ export async function fillUserInfo(wallet: WalletV3ContractR1, name?: string) {
 		}
 	}
 
-	const peer = new Peer(getPeerId(user), {
-		host: 'ec2-52-59-224-143.eu-central-1.compute.amazonaws.com',
-		port: 9000,
-		path: '/myapp'
-	});
+	const peer = new Peer(getPeerId(user));
 	peer.on('error', console.error);
 	peerStore.set(peer);
 	userStore.set(user);
