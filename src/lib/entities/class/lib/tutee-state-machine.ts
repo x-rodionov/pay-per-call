@@ -104,7 +104,7 @@ export function classStateMachineTutee(connection: DataConnection) {
 
 				const pcInitPoll = setInterval(async () => {
 					const state = await (channelTuteeSide as any).getChannelState();
-					if (state === (tonweb.payments as any).PaymentChannel.STATE_OPEN) {
+					if (state === (TonWeb as any).payments.PaymentChannel.STATE_OPEN) {
 						clearInterval(pcInitPoll);
 						classStateTutee.set(CSTT.READY_FOR_TRANSACTIONS);
 					}

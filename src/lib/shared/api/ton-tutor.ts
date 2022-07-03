@@ -1,7 +1,7 @@
 import TonWeb from 'tonweb';
 
 import { getPersistedWallet, tonweb, type ChannelConfig } from './ton';
-import type { serializeChannelConfig } from './ton-v2';
+import type { PaymentChannel, serializeChannelConfig } from './ton-v2';
 import type { User } from './users';
 
 const BN = TonWeb.utils.BN;
@@ -26,5 +26,14 @@ export function createChannelTutor(channelConfig: ChannelConfig, tutee: User) {
 		isA: false,
 		myKeyPair: keyPair,
 		hisPublicKey: tuteePublicKey
+	});
+}
+
+export function getTutorWalletSender(tuteeChannel: PaymentChannel) {
+	const { wallet: myWallet, keyPair } = getPersistedWallet()!;
+
+	return tuteeChannel.fromWallet({
+		wallet: myWallet,
+		secretKey: keyPair.secretKey
 	});
 }

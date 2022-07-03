@@ -8,7 +8,8 @@ import { streams } from '$lib/entities/stream';
 import { get } from 'svelte/store';
 import type { ChannelConfig, ChannelState } from '$lib/shared/api/ton';
 import type { PaymentChannel } from '$lib/shared/api/ton-v2';
-import { createChannelTutor, deserializeChannelConfig } from '$lib/shared/api/ton-tutor';
+import { createChannelTutor, deserializeChannelConfig, getTutorWalletSender } from '$lib/shared/api/ton-tutor';
+// import TonWeb from 'tonweb';
 
 export function classStateMachineTutor(connection: DataConnection) {
 	let channelConfig: ChannelConfig;
@@ -25,10 +26,14 @@ export function classStateMachineTutor(connection: DataConnection) {
 		switch (state) {
 			case CSTR.WAITING_FOR_PC_CONFIG: {
 				console.log('[SM] Waiting for PC config');
-				function selfDestructOnData(data: any) {
+				async function selfDestructOnData(data: any) {
 					const { tutee } = connection.metadata as ConnectionMetadata;
 					channelConfig = deserializeChannelConfig(data);
 					channelTutorSide = createChannelTutor(channelConfig, tutee);
+					// const fromWalletTutor = getTutorWalletSender(channelTutorSide);
+					// await fromWalletTutor
+					// 	.topUp({ coinsA: new TonWeb.utils.BN(0), coinsB: channelConfig.initBalanceB })
+					// 	.send(channelConfig.initBalanceB.add(TonWeb.utils.toNano('0.1')));
 
 					classStateTutor.set(CSTR.PC_CONFIG_RECEIVED);
 					connection.off('data', selfDestructOnData);
