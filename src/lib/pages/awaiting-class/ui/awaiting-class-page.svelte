@@ -1,8 +1,9 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import IconHourglassBottom from '~icons/material-symbols/hourglass-bottom';
 
   import { activeCall } from '$lib/features/initiate-call';
-  import { CTAButton } from '$lib/shared/ui';
+  import { CTAButton, H1 } from '$lib/shared/ui';
 
   const cancelSession = () => {
     $activeCall?.close();
@@ -10,9 +11,14 @@
   };
 </script>
 
-<section class="flex flex-col pb-6">
-  <h1>Prepare to have a class</h1>
-  <p>Waiting for the tutor to accept the request</p>
-  <CTAButton on:click={cancelSession}>Cancel</CTAButton>
-  <p>Calculus / 0.01 mTON per hour</p>
-</section>
+<main class="flex-1 flex justify-between flex-col items-center pb-6 before:w-0">
+  <div class="flex flex-col items-center">
+    <H1>Prepare to have a class</H1>
+    <div class="flex items-center my-6">
+      <IconHourglassBottom class="w-8 h-8 mr-4 text-blue-500 dark:text-blue-300" />
+      <p>Waiting for the tutor to accept the request</p>
+    </div>
+    <CTAButton class="px-12 py-4 bg-orange-500 hover:bg-orange-600 focus:ring-orange-200 dark:bg-orange-300 dark:hover:bg-orange-400 dark:focus:ring-orange-800" on:click={cancelSession}>Cancel</CTAButton>
+  </div>
+  <p class="font-light text-sm">Calculus / 0.01 mTON per hour</p>
+</main>
