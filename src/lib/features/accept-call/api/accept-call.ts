@@ -1,7 +1,7 @@
 import type { MediaConnection } from 'peerjs';
 import { goto } from '$app/navigation';
 
-import { activeCall } from '$lib/features/initiate-call';
+import { activeCall } from '$lib/entities/peer';
 import { streams } from '$lib/entities/stream';
 import { acceptLessonStart } from '$lib/shared/api/ton';
 

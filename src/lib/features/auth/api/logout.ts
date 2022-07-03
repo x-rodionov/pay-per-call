@@ -1,7 +1,8 @@
 import { get } from 'svelte/store';
 import { goto } from '$app/navigation';
 
-import { peer as peerStore, user as userStore, wallet as walletStore } from '$lib/entities/user';
+import { user as userStore, wallet as walletStore } from '$lib/entities/user';
+import { peer as peerStore } from '$lib/entities/peer';
 import { removeKeys } from '$lib/shared/api/ton';
 
 export const logout = () => {

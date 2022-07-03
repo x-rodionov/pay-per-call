@@ -1,9 +1,9 @@
 import Peer from 'peerjs';
-
-import { peer as peerStore, user as userStore, wallet as walletStore } from '$lib/entities/user';
-import { createUser, findUser } from '$lib/shared/api/users';
-import { getPeerId } from '$lib/entities/user';
 import type { WalletV3ContractR1 } from 'tonweb/dist/types/contract/wallet/v3/wallet-v3-contract-r1';
+
+import { user as userStore, wallet as walletStore, getPeerId } from '$lib/entities/user';
+import { peer as peerStore } from '$lib/entities/peer';
+import { createUser, findUser } from '$lib/shared/api/users';
 
 export async function fillUserInfo(wallet: WalletV3ContractR1, publicKey: Uint8Array, name?: string) {
 	const walletAddress = wallet.address!.toString(true, true, true);
