@@ -2,8 +2,8 @@
   import { H1 } from '$lib/shared/ui';
 	import { Header } from '$lib/widgets/header';
 	import { ClassRequests } from '$lib/widgets/class-requests';
-	import { ChargedRateForm } from '$lib/features/charged-rate-form';
-	import { ExpertiseForm } from '$lib/features/expertise-form';
+	import { ChargedRateForm, ExpertiseForm, GoOnline } from '$lib/features/teacher-forms';
+  import { user } from '$lib/entities/user';
 </script>
 
 <Header />
@@ -16,7 +16,14 @@
     <ChargedRateForm />
   </div>
   
-  <div class="mt-16">
-    <ClassRequests />
+  
+  <div class="mt-8">
+    <GoOnline />
   </div>
+  
+  {#if $user?.online}
+    <div class="mt-16">
+      <ClassRequests />
+    </div>
+  {/if}
 </section>

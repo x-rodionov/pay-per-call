@@ -3,7 +3,7 @@
 
 	import { ClassRequests } from '$lib/widgets/class-requests';
   import { ExpertiseForm } from '$lib/features/expertise-form';
-  import { ChargedRateForm } from '$lib/features/charged-rate-form';
+  import { ChargedRateForm } from '../../../features/teacher-forms';
 	// import { Header } from '$lib/widgets/header';
 </script>
 

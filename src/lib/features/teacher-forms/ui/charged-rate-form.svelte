@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { TextField, OutlineButton } from '$lib/shared/ui';
-	import { user } from '$lib/entities/user';
+	import { TextField, OutlineButton } from '../../../shared/ui';
+	import { user } from '../../../entities/user';
 	import { changeUserField } from '../../../shared/api/users';
 
 	// Trust me, I know better than TS
