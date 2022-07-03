@@ -20,5 +20,9 @@
     </div>
     <CTAButton class="px-12 py-4 bg-orange-500 hover:bg-orange-600 focus:ring-orange-200 dark:bg-orange-300 dark:hover:bg-orange-400 dark:focus:ring-orange-800" on:click={cancelSession}>Cancel</CTAButton>
   </div>
-  <p class="font-light text-sm">Calculus / 0.01 mTON per hour</p>
+  {#if $activeCall !== null}
+    <p class="font-light text-sm">{$activeCall.metadata.tutor.course}, {$activeCall.metadata.tutor.cost_per_minute} nTON/min</p>
+  {:else}
+    <p>No active call. <a href="/student" class="underline text-blue-500 dark:text-blue-300">Go back</a></p>
+  {/if}
 </main>
