@@ -1,11 +1,11 @@
 import { get } from 'svelte/store';
 import { goto } from '$app/navigation';
 
-import { peer, getPeerId, user as userStore } from '$lib/entities/user';
+import { user as userStore, getPeerId } from '$lib/entities/user';
+import { peer, activeCall } from '$lib/entities/peer';
 import { streams } from '$lib/entities/stream';
 import type { User } from '$lib/shared/api/users';
 
-import { activeCall } from '../model/active-call';
 import { requestLessonStart } from '$lib/shared/api/ton';
 import TonWeb from 'tonweb';
 
@@ -24,8 +24,8 @@ export async function initiateCall(user: User) {
 			tutee: get(userStore),
 			tutor: user,
 			paymentChannelConfig: channelConfig,
-			channelAddress: (await channel.getAddress()).toString(true, true, true),
-		},
+			channelAddress: (await channel.getAddress()).toString(true, true, true)
+		}
 	});
 	activeCall.set(call);
 
@@ -34,7 +34,7 @@ export async function initiateCall(user: User) {
 			// Call was accepted
 			await fromWallet.deploy().send(TonWeb.utils.toNano('0.05'));
 			await fromWallet
-				.topUp({coinsA: channelConfig.initBalanceA, coinsB: new TonWeb.utils.BN(0)})
+				.topUp({ coinsA: channelConfig.initBalanceA, coinsB: new TonWeb.utils.BN(0) })
 				.send(channelConfig.initBalanceA.add(TonWeb.utils.toNano('0.05')));
 			streams.set([ourStream, theirStream]);
 			goto('/class');
