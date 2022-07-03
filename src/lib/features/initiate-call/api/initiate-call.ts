@@ -1,8 +1,9 @@
 import { get } from 'svelte/store';
 import { goto } from '$app/navigation';
 
-import { peer, getPeerId, type User, user as userStore } from '$lib/entities/user';
+import { peer, getPeerId, user as userStore } from '$lib/entities/user';
 import { streams } from '$lib/entities/stream';
+import type { User } from '$lib/shared/api/users';
 
 import { activeCall } from '../model/active-call';
 
