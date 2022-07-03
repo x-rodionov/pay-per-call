@@ -1,6 +1,4 @@
 import { getPersistedWallet } from '$lib/shared/api/ton';
-import { wallet as walletStore, user as userStore } from '$lib/entities/user';
-import { findUser } from '$lib/shared/api/users';
 import { fillUserInfo } from './fill-user-info';
 
 export const initialAuth = () => {
