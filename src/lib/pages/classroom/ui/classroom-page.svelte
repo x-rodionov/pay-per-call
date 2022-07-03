@@ -25,6 +25,11 @@
   function hangUp() {
     if ($activeCall !== null) {
       $activeCall.close();
+      if ($streams !== null) {
+        const [myStream, tutorStream] = $streams;
+        myStream.getTracks().forEach(track => track.stop());
+        tutorStream.getTracks().forEach(track => track.stop());
+      }
       if ($user !== null) {
         goto($user.id === $activeCall.metadata.tutor.id ? '/tutor' : '/student');
       }
