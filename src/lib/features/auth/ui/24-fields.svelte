@@ -4,9 +4,10 @@
 	import { wordlists } from 'tonweb-mnemonic';
 
 	import { CTAButton, TextField } from '$lib/shared/ui';
+	import { FAST_MNEMONICS } from '$lib/shared/lib/env';
+	import { MNEMONICS_LENGTH } from '$lib/shared/api/ton';
 
 	import { connect } from '../api/connect';
-	import { FAST_MNEMONICS } from '$lib/shared/lib/env';
 
 	let username = '';
 	const fieldValues = FAST_MNEMONICS ? FAST_MNEMONICS.split(' ') : new Array<string>(24).fill('');
@@ -15,6 +16,19 @@
 		await connect(username, fieldValues);
 		goto(redirectTo);
 	};
+
+	function insertMnemonic(event: ClipboardEvent) {
+		event.preventDefault();
+		const paste = (event.clipboardData || (window as any).clipboardData).getData('text');
+		const words = paste.split(' ');
+		if (words.length !== MNEMONICS_LENGTH) {
+			return;
+		}
+
+		for (let i = 0; i < words.length; i++) {
+			fieldValues[i] = words[i];
+		}
+	}
 </script>
 
 <datalist id="mnemonics">
@@ -34,6 +48,7 @@
 					class="w-32"
 					list="mnemonics"
 					required
+					on:paste={insertMnemonic}
 					bind:value={fieldValues[i - 1]}
 				/>
 			</div>

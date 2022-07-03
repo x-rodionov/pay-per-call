@@ -42,6 +42,7 @@
 		)}
 		on:blur
 		on:input
+		on:paste
     {...$$restProps}
 	/>
 </div>
