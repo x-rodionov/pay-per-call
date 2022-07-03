@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-export enum ClassState {
+export enum ClassStateTutee {
 	/** Waiting for the tutor to accept the Peer.js data connection. */
 	WAITING_FOR_DATA_ACCEPTANCE = '0:WAITING_FOR_DATA_ACCEPTANCE',
 	/** The tutor has accepted the Peer.js data connection. */
@@ -40,4 +40,4 @@ export enum ClassState {
 	FIN_ACK_RECEIVED = '14A:FIN_ACK_RECEIVED'
 }
 
-export const classState = writable<ClassState | undefined>(undefined);
+export const classStateTutee = writable<ClassStateTutee | undefined>(undefined);

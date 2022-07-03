@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
 
 import { getPeerId, user } from '$lib/entities/user';
-import { classState, CS, classStateMachine } from '$lib/entities/class';
+import { classStateTutee, CSTT, classStateMachineTutee } from '$lib/entities/class';
 import type { User } from '$lib/shared/api/users';
 
 import { getValidPeer, activeConnection } from '$lib/entities/peer';
@@ -25,8 +25,8 @@ export async function initiateClass(them: User, classDuration: number = 60) {
 		});
 
 		activeConnection.set(connection);
-		classState.subscribe(classStateMachine(connection));
-		classState.set(CS.WAITING_FOR_DATA_ACCEPTANCE);
+		classStateTutee.subscribe(classStateMachineTutee(connection));
+		classStateTutee.set(CSTT.WAITING_FOR_DATA_ACCEPTANCE);
 	} catch (e) {
 		console.error('The peer is g0ne/disconnected (somehow)');
 	}

@@ -1,2 +1,4 @@
-export { classState, ClassState as CS } from './model/state';
-export { classStateMachine } from './lib/state-machine';
+export { classStateTutee, ClassStateTutee as CSTT } from './model/tutee-state';
+export { classStateMachineTutee } from './lib/tutee-state-machine';
+export { classStateTutor, ClassStateTutor as CSTR } from './model/tutor-state';
+export { classStateMachineTutor } from './lib/tutor-state-machine';
