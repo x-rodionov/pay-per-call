@@ -12,7 +12,7 @@
 	<section class="pt-12">
 		<H1>Tutor profile</H1>
 
-		<div class="flex justify-between items-start">
+		<div class="flex justify-between items-start space-x-8">
 			<ExpertiseForm />
 			<ChargedRateForm />
 		</div>
