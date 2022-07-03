@@ -9,7 +9,7 @@
 <main class="px-12 lg:px-40 pb-6">
 	<Header />
 
-	<section class="pt-12 px-12 lg:px-40">
+	<section class="pt-12">
 		<H1>Tutor profile</H1>
 
 		<div class="flex justify-between">
