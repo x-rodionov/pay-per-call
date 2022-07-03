@@ -10,7 +10,7 @@ export interface User {
 }
 
 export const fetchUsers = async () => {
-	const res = await supabase.from<User>('users').select('*');
+	const res = await supabase.from<User>('users').select('*').eq('online', true);
 	return res.data || [];
 };
 
