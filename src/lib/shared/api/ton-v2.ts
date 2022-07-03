@@ -57,7 +57,7 @@ export async function generatePCConfig(tutor: User, classDuration: number): Prom
 /** Create a payment channel from the tutee's side. */
 export function createChannelTutee(channelConfig: ChannelConfig, tutor: User) {
   const { keyPair } = getPersistedWallet()!;
-  const tutorPublicKey = new Uint8Array(Buffer.from(tutor.public_key, 'base64'));
+  const tutorPublicKey = TonWeb.utils.base64ToBytes(tutor.public_key);
 
 	return tonweb.payments.createChannel({
     ...channelConfig,

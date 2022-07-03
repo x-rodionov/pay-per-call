@@ -90,7 +90,7 @@ export interface ChannelConfig {
 	initBalanceB: BigNumber;
 }
 
-type ChannelState = {
+export type ChannelState = {
 	balanceA: BigNumber;
 	balanceB: BigNumber;
 	seqnoA: BigNumber;
@@ -125,7 +125,7 @@ interface TonWebWithPayments extends TonWeb {
 	payments: {
 		createChannel(
 			config: ChannelConfig & {
-				isA: boolean;
+				isA?: boolean;
 				myKeyPair: KeyPair;
 				hisPublicKey: Uint8Array;
 			}
