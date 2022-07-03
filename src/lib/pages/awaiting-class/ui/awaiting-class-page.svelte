@@ -10,7 +10,7 @@
   };
 </script>
 
-<section class="flex flex-col">
+<section class="flex flex-col pb-6">
   <h1>Prepare to have a class</h1>
   <p>Waiting for the tutor to accept the request</p>
   <CTAButton on:click={cancelSession}>Cancel</CTAButton>

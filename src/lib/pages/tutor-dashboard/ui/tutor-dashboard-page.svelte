@@ -4,11 +4,9 @@
 	import { ClassRequests } from '$lib/widgets/class-requests';
   import { ExpertiseForm } from '$lib/features/expertise-form';
   import { ChargedRateForm } from '../../../features/teacher-forms';
-	// import { Header } from '$lib/widgets/header';
 </script>
 
-<!-- <Header /> -->
-<main class="px-12 lg:px-40">
+<main class="px-12 lg:px-40 pb-6">
 	<H1>Tutor profile</H1>
 	<div class="flex justify-between">
 		<ExpertiseForm />

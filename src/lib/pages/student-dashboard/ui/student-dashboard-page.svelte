@@ -3,5 +3,7 @@
   import { AvailableTutors } from '$lib/widgets/available-tutors';
 </script>
 
-<Header />
-<AvailableTutors />
+<main class="pb-6">
+  <Header />
+  <AvailableTutors />
+</main>
