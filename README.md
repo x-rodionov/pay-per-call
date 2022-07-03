@@ -1,10 +1,10 @@
-<a href="https://diamonds-ton.vercel.app/">
-    <img align="right" alt="Live demo" src="./.github/assets/live-demo.png" />
+<a href="https://diamonds-ton.vercel.app/" target="_blank">
+    <img align="right" alt="Live demo" src="./.github/assets/live-demo.svg" />
 </a>
-<img alt="Diamonds, a fearless learning platform. Powered by TON" src="./.github/assets/readme-light.png#gh-light-mode-only" />
-<img alt="Diamonds, a fearless learning platform. Powered by TON" src="./.github/assets/readme-dark.png#gh-dark-mode-only" />
+<img alt="Diamonds, a fearless learning platform. Powered by TON" src="./.github/assets/banner-light.svg#gh-light-mode-only" />
+<img alt="Diamonds, a fearless learning platform. Powered by TON" src="./.github/assets/banner-dark.svg#gh-dark-mode-only" />
 
-![Vercel](https://vercelbadge.vercel.app/api/illright/diamonds)
+![Vercel deployment](https://github.com/illright/diamonds/actions/workflows/deploy.yml/badge.svg)
 
 ## Features
 
