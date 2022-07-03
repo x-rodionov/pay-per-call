@@ -1,9 +1,19 @@
 <script lang="ts">
   import clsx from 'clsx';
 
-  export let active = false;
+  import { page } from '$app/stores';
+
+  export let href: string;
+
+  $: active = $page.url.pathname === href;
 </script>
 
-<span class={clsx("font-medium", "text-lg", !active && 'text-blue-500 underline cursor-pointer')}>
-  <slot />
-</span>
+{#if active}
+  <span class={clsx("font-medium", "text-lg")}>
+    <slot />
+  </span>
+{:else}
+  <a {href} class={clsx("font-medium", "text-lg", 'text-blue-500 underline cursor-pointer')}>
+    <slot />
+  </a>
+{/if}

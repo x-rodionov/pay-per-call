@@ -6,13 +6,7 @@
 </script>
 
 <div>
-	<label>
-		<input class="sr-only" type="radio" name="teach-mode" value={true} bind:group={$isTeaching} />
-		<LinklikeTab active={$page.url.pathname === '/tutor'}>Teach</LinklikeTab>
-	</label>
+	<LinklikeTab href="/tutor">Teach</LinklikeTab>
 	<span class="mx-1">/</span>
-	<label>
-		<input class="sr-only" type="radio" name="teach-mode" value={false} bind:group={$isTeaching} />
-		<LinklikeTab active={$page.url.pathname === '/student'}>Learn</LinklikeTab>
-	</label>
+	<LinklikeTab href="/student">Learn</LinklikeTab>
 </div>

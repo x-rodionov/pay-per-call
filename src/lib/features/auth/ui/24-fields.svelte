@@ -6,22 +6,14 @@
 	import { CTAButton, TextField } from '$lib/shared/ui';
 
 	import { connect } from '../api/connect';
-	import { MNEMONICS_LENGTH } from '$lib/shared/api/ton';
 	import { FAST_MNEMONICS } from '$lib/shared/lib/env';
 
 	let username = '';
-	let error = '';
 	const fieldValues = FAST_MNEMONICS ? FAST_MNEMONICS.split(' ') : new Array<string>(24).fill('');
 
-	const logIn = async () => {
-		error = '';
-		if (fieldValues.filter((item) => !!item).length < MNEMONICS_LENGTH) {
-			error = `All ${MNEMONICS_LENGTH} words should be filled.`;
-			return;
-		}
-
+	const logIn = async (redirectTo: string) => {
 		await connect(username, fieldValues);
-		goto('/tutor');
+		goto(redirectTo);
 	};
 </script>
 
@@ -30,9 +22,8 @@
 		<option value={word} />
 	{/each}
 </datalist>
-<form class="flex flex-col items-center" on:submit|preventDefault={logIn}>
-	<TextField id="username-field" label="Display name" required bind:value={username} class="mb-4" />
-	<p class="my-2">Wallet mnemonics:</p>
+<form class="flex flex-col items-center">
+	<p class="my-4">Enter your wallet's 24 secret words:</p>
 	<div class="grid grid-rows-[repeat(8,minmax(0,1fr))] grid-flow-col justify-items-end mb-4">
 		{#each range(1, 25) as i}
 			<div class="mb-2">
@@ -42,13 +33,14 @@
 					label={`${i}.`}
 					class="w-32"
 					list="mnemonics"
+					required
 					bind:value={fieldValues[i - 1]}
 				/>
 			</div>
 		{/each}
 	</div>
-	{#if error}
-		<p class="text-red-500 mb-2">{error}</p>
-	{/if}
-	<CTAButton type="submit">Confirm</CTAButton>
+	<div class="flex space-x-2">
+		<CTAButton on:click={() => logIn('/tutor')}>Log in as a tutor</CTAButton>
+		<CTAButton on:click={() => logIn('/student')}>Log in as a student</CTAButton>
+	</div>
 </form>

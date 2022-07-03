@@ -1,18 +1,17 @@
 <script lang="ts">
   import { FlatIconButton, TextField } from '$lib/shared/ui';
   import IconEdit from '~icons/material-symbols/edit-outline';
-  import type { User } from '../../../shared/api/users';
-  import { changeUserField } from '../../../shared/api/users';
-  
+  import { changeUserField, type User } from '$lib/shared/api/users';
+
   export let user: User;
-  
+
   let editing = false;
-  
+
   const changeName = async () => {
     editing = false;
     await changeUserField(user.wallet_id, { field: 'name', value: user.name });
   };
-  
+
   const changeOnBlur = () => {
     if (editing) changeName()
   };
